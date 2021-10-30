@@ -11,13 +11,17 @@ namespace RandomQuotes.Controllers
 {
     public class QuoteController : Controller
     {
-        EntitiesContext dbcontext = new EntitiesContext();
-
+        private readonly EntitiesContext _dbContext;
+        public QuoteController(EntitiesContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
+        
         public async Task<IActionResult> Index(int pg = 1)
         {
-            var quotesResult = await dbcontext.Quotes.OrderBy(emp => Guid.NewGuid()).ToListAsync();
+            var quotesResult = await _dbContext.Quotes.OrderBy(emp => Guid.NewGuid()).ToListAsync();
 
-            const int pageSize = 2;
+            const int pageSize = 5;
             if (pg < 1)
                 pg = 1;
             int quotesCount = quotesResult.Count();
@@ -46,8 +50,8 @@ namespace RandomQuotes.Controllers
                 }
                 else
                 {
-                    await dbcontext.Quotes.AddAsync(quotesModel);
-                    await dbcontext.SaveChangesAsync();
+                    await _dbContext.Quotes.AddAsync(quotesModel);
+                    await _dbContext.SaveChangesAsync();
                     return RedirectToAction("Index");
                 }
             }
@@ -62,7 +66,7 @@ namespace RandomQuotes.Controllers
         {
             try
             {
-                var result = await dbcontext.Quotes.Where(q => q.Id == id).FirstOrDefaultAsync();
+                var result = await _dbContext.Quotes.Where(q => q.Id == id).FirstOrDefaultAsync();
                 return View("Edit", result);
             }
             catch (Exception ex)
@@ -79,8 +83,8 @@ namespace RandomQuotes.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    dbcontext.Quotes.Update(edit);
-                    await dbcontext.SaveChangesAsync();
+                    _dbContext.Quotes.Update(edit);
+                    await _dbContext.SaveChangesAsync();
                     return RedirectToAction("Index");
                 }
                 else
@@ -101,11 +105,11 @@ namespace RandomQuotes.Controllers
         {
             try
             {
-                var deleteQuote = await dbcontext.Quotes.Where(q => q.Id == id).FirstOrDefaultAsync();
+                var deleteQuote = await _dbContext.Quotes.Where(q => q.Id == id).FirstOrDefaultAsync();
                 if (deleteQuote != null )
                 {
-                    dbcontext.Quotes.Remove(deleteQuote);
-                    await dbcontext.SaveChangesAsync();
+                    _dbContext.Quotes.Remove(deleteQuote);
+                    await _dbContext.SaveChangesAsync();
                     return RedirectToAction("Index");
                 }
                 else

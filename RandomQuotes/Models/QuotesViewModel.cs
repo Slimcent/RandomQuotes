@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RandomQuotes.Models
 {
-    public class QuotesViewModel : BaseEntity
+    public class QuotesViewModel : IEntity
     {
         public int Id { get; set; }
 
@@ -16,8 +16,8 @@ namespace RandomQuotes.Models
         [Required, MinLength(4), MaxLength(50)]
         public string Author { get; set; }
 
-        public new DateTime CreatedAt { get; set; } = DateTime.Now;
-        public new DateTime UpdatedAt { get; set; } = DateTime.Now;
+        public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
 
     }
 }

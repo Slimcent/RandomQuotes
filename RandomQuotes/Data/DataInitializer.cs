@@ -18,6 +18,8 @@ namespace RandomQuotes.Data
                      Id = 1,
                      Quote = "Do not despise the days of your little beginning",
                      Author = "Annonymous",
+                     CreatedAt = DateTime.Now,
+                     UpdatedAt = DateTime.Now
                  },
 
                  new QuotesViewModel
@@ -25,6 +27,8 @@ namespace RandomQuotes.Data
                      Id = 2,
                      Quote = "Just flow with the moment",
                      Author = "Annonymous",
+                     CreatedAt = DateTime.Now,
+                     UpdatedAt = DateTime.Now
                  },
 
                  new QuotesViewModel
@@ -32,6 +36,8 @@ namespace RandomQuotes.Data
                      Id = 3,
                      Quote = "The end will justify the beginning",
                      Author = "Annonymous",
+                     CreatedAt = DateTime.Now,
+                     UpdatedAt = DateTime.Now
                  },
                  
             };

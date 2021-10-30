@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RandomQuotes.Data;
 
 namespace RandomQuotes.Migrations
 {
     [DbContext(typeof(EntitiesContext))]
-    partial class EntitiesModelSnapshot : ModelSnapshot
+    [Migration("20211030215853_...")]
+    partial class _
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,25 +53,25 @@ namespace RandomQuotes.Migrations
                         {
                             Id = 1,
                             Author = "Annonymous",
-                            CreatedAt = new DateTime(2021, 10, 30, 23, 2, 21, 405, DateTimeKind.Local).AddTicks(7791),
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Quote = "Do not despise the days of your little beginning",
-                            UpdatedAt = new DateTime(2021, 10, 30, 23, 2, 21, 407, DateTimeKind.Local).AddTicks(7712)
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 2,
                             Author = "Annonymous",
-                            CreatedAt = new DateTime(2021, 10, 30, 23, 2, 21, 407, DateTimeKind.Local).AddTicks(8746),
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Quote = "Just flow with the moment",
-                            UpdatedAt = new DateTime(2021, 10, 30, 23, 2, 21, 407, DateTimeKind.Local).AddTicks(8772)
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 3,
                             Author = "Annonymous",
-                            CreatedAt = new DateTime(2021, 10, 30, 23, 2, 21, 407, DateTimeKind.Local).AddTicks(8785),
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Quote = "The end will justify the beginning",
-                            UpdatedAt = new DateTime(2021, 10, 30, 23, 2, 21, 407, DateTimeKind.Local).AddTicks(8788)
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
 #pragma warning restore 612, 618

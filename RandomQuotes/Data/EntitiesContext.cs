@@ -6,8 +6,10 @@ using Microsoft.EntityFrameworkCore;
 using RandomQuotes.Data;
 using RandomQuotes.Models;
 using System.Configuration;
+using System.ComponentModel.DataAnnotations;
 using Microsoft.Extensions.Configuration;
 using System.IO;
+using System.Threading;
 
 namespace RandomQuotes.Data
 {
@@ -42,25 +44,47 @@ namespace RandomQuotes.Data
             modelBuilder.Seed();
         }
 
-        // Makiing CreatedAt and UpdatedAt to be Automatically into thr database
-        public override int SaveChanges()
+        
+        public override int SaveChanges(bool acceptAllChangesOnSuccess)
         {
-            var entries = ChangeTracker
-                .Entries()
-                .Where(e => e.Entity is BaseEntity && (e.State == EntityState.Added || 
-                            e.State == EntityState.Modified));
-            foreach (var entityEntry in entries)
+            OnBeforeSaving();
+            return base.SaveChanges(acceptAllChangesOnSuccess);
+        }
+
+        public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            OnBeforeSaving();
+            return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
+        }
+
+        private void OnBeforeSaving()
+        {
+            var entries = ChangeTracker.Entries();
+
+            foreach (var entry in entries)
             {
-                ((BaseEntity)entityEntry.Entity).UpdatedAt = DateTime.UtcNow;
-                if (entityEntry.State == EntityState.Added)
+                if (entry.Entity is IEntity trackable)
                 {
-                    ((BaseEntity)entityEntry.Entity).CreatedAt = DateTime.UtcNow;
+                    var now = DateTime.UtcNow;
+                    //var user = GetCurrentUser();
+                    switch (entry.State)
+                    {
+                        case EntityState.Modified:
+                            trackable.UpdatedAt = now;
+                            //trackable.UpdatedBy = user;
+                            break;
+
+                        case EntityState.Added:
+                            trackable.CreatedAt = now;
+                            trackable.UpdatedAt = now;
+                            //trackable.CreatedBy = user;
+                            //trackable.UpdatedBy = user;
+                            break;
+                    }
                 }
             }
-            return base.SaveChanges();
         }
 
         public DbSet<QuotesViewModel> Quotes { get; set; }
-        
     }
 }
