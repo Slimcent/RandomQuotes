@@ -1,1 +1,1 @@
-# Random Quotes is a simple Web Application that displays Quotes randomly. Outotes can be added, edited and deleted.
+# Random Quotes is a simple Web Application that displays Quotes randomly. Quotes can be added, edited and deleted.
